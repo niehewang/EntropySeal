@@ -1,0 +1,6 @@
+{
+  "K0": {"tau_count": 7,"tau_mad": 1.6875},
+  "K1": {"tau_count": 7,"tau_mad": 1.46875},
+  "K2": {"tau_count": 6,"tau_mad": 1.09375},
+  "K3": {"tau_count": 7,"tau_mad": 1.75}
+}

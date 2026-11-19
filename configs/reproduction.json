@@ -1,0 +1,76 @@
+{
+  "carrier": {
+    "alpha": 0.03,
+    "comparison_alpha": 0.06,
+    "expected_marked_checkpoint_sha256": {
+      "K0": "d8bebf162ccea423d3d47ff28f1950265ebd5809b2f32d1bc5e46353d7d74308",
+      "K1": "46624413a595e9ae02c1fd48f1d428954ee6005b05721e8410da08a43b64bba2",
+      "K2": "425c305e36d66929efeb3dcbf2c97c7338d1466207b981c6e7bbfc9e5916d155",
+      "K3": "438feac46144471db19539d2e1d61acb30d148c47f02099592a47fd6d12afdf8"
+    },
+    "target_indices": [45,46,47,48,49],
+    "target_tensor": "residual_compressor.layers.2.bias",
+    "vectors": {
+      "K0": [0.8605126621622845,0.17684973788329592,-0.916840094108144,1.239812605937006,-1.3603349118744426],
+      "K1": [-1.7269795652141873,-0.1553556712943991,0.702295037067499,1.2240313147203905,-0.043991115279302585],
+      "K2": [-0.4704052118918604,-1.3046559993675404,-0.5353958292108658,0.9094266711029954,1.4010303693672712],
+      "K3": [-1.5543157003361512,1.3508342523189547,-0.2496399905795522,-0.31858599604341176,0.7717074346401605]
+    }
+  },
+  "clean_rate": {
+    "aux_optimizer": "Adam(quantiles, lr=1e-3)",
+    "batch_size": 64,
+    "crop_size": 64,
+    "dataset": "DIV2K train",
+    "global_seed": 20261115,
+    "gradient_clip_max_norm": 1.0,
+    "image_count": 800,
+    "main_optimizer": "Adam(non-quantiles, lr=1e-4)",
+    "optimizer_steps": 400,
+    "presentations": 25600,
+    "snapshots": [0,25,100,400]
+  },
+  "datasets": {
+    "CLIC2024": {"purpose":["cross-dataset evaluation"],"redistributed":false},
+    "DIV2K": {"purpose":["carrier validation","holdout construction","clean-rate calibration"],"redistributed":false},
+    "KODAK": {"purpose":["cross-dataset evaluation"],"redistributed":false}
+  },
+  "environment": {
+    "compressai":"1.2.0","cuda_runtime":"11.3","numpy":"1.23.5","python":"3.9",
+    "timm":"0.5.4","torch":"1.11.0","torchac":"0.9.3","torchvision":"0.12.0"
+  },
+  "method":"EntropySeal",
+  "query_budget":{
+    "budgets":[2,4,8,12,16,24,32],
+    "note":"retrospective descriptive analysis; thresholds are never rescaled for smaller budgets",
+    "order_count":16,
+    "order_rule":"SHA256(ENTROPYSEAL_A5Q_ORDER_V1|<group>|<order>|<raw_rgb_sha256>)"
+  },
+  "upstream":{
+    "branch":"DLPR_ll",
+    "commit":"fb6a9d9d4be55b0fc11afea3b406ddebd67f41e3",
+    "repository":"BYchao100/Deep-Lossy-Plus-Residual-Coding",
+    "source_checkpoint_sha256":"7bf7c69fcc4c7f6d8c7e0d111b284e3ed061097a95b78de6db00e1ad07053179",
+    "source_snapshot_sha256":"7af211622c106a912559c7e89abc5f13c055862525377d028752ef698557cfff",
+    "tracked_source_files":[
+      {"bytes":8823,"git_blob_sha1":"a3719ac623fbaa190e17e3d3419f6698bca76ac7","path":"DLPR_ll/encode.py","sha256":"fab15283966ac056fefd67ff23b676e8b208c41cd5b0a13a294303ab48ce9fd9"},
+      {"bytes":7767,"git_blob_sha1":"94d24d4aaa30cce0110f44f538df259af6857ebb","path":"DLPR_ll/decode.py","sha256":"3f4b046d521e1c2484e37a4b3bd6f0552d76a313fbb86ba19905a865ade81b3c"},
+      {"bytes":10307,"git_blob_sha1":"81397b5b738712e00cc8938dde36058fd86bab7a","path":"DLPR_ll/ll_model_eval.py","sha256":"d11e5fba10a5390ff81833381e1247a3de4a708de72bf784dd6d26c05b2b2970"},
+      {"bytes":11347,"git_blob_sha1":"7eb1a3de300fc301abcf2cff85e7d7ad80077cff","path":"DLPR_ll/compression_model.py","sha256":"28c155634a2702d51da3537b17adaa6643c4282db4d2a78a6002d4fc58e6d107"},
+      {"bytes":2958,"git_blob_sha1":"0eef0afc05a07ae0270ef527fd483c6a567b81ac","path":"DLPR_ll/logisticmixturemodel.py","sha256":"fc9302d5ed11ae1eaac05b796a65caab31e18709e15cf210040afd2009ae7d67"},
+      {"bytes":4449,"git_blob_sha1":"6de421d4dbb4e3c8af109df46c0e36e2cc81f92c","path":"DLPR_ll/custom_layers.py","sha256":"3350dd67e8d43bc484eadf02bd4756ff71109b662f26da10fa2cf2a1225c3d4b"},
+      {"bytes":8935,"git_blob_sha1":"04838c801afb252ee752976d32d27826f94875e9","path":"DLPR_ll/win_attention.py","sha256":"ca1cbf6b74fe8744aa6df69a0c541bcf6ed6527aa4c67961544ed143d3083e18"}
+    ]
+  },
+  "verifier":{
+    "owner_rule":"accept an owner iff either the FP32 or FP16 registered profile accepts",
+    "profile_rule":"accept a profile iff mismatch_count <= tau_count and mean_absolute_difference <= tau_mad",
+    "profiles":["FP32","FP16"],
+    "thresholds":{
+      "K0":{"tau_count":7,"tau_mad":1.6875},
+      "K1":{"tau_count":7,"tau_mad":1.46875},
+      "K2":{"tau_count":6,"tau_mad":1.09375},
+      "K3":{"tau_count":7,"tau_mad":1.75}
+    }
+  }
+}

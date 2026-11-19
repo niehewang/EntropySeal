@@ -9,9 +9,9 @@ EntropySeal is a research implementation for **checkpoint-intrinsic ownership si
 ## What is released
 
 - `src/entropyseal/`: compact reference implementation of checkpoint marking, FP16 profile construction, and codelength-profile decisions.
-- `experiments/`: sanitized experiment runners for checkpoint-carrier validation, black-box claimant binding, mild-copy analysis, precision profiling, cross-dataset evaluation, query-budget analysis, and clean-rate removal characterization.
-- `configs/`: the compact global reproduction contract plus sanitized per-experiment frozen configurations (upstream commit/hash contract, carrier coordinates/vectors, alpha, thresholds, environment, seeds, and calibration schedule).
-- `reference/`: image-coordinate/hash manifests and compact predecessor evidence only. Third-party images are **not** redistributed.
+- `experiments/`: public reproduction utilities for checkpoint marking, precision round-trip, profile verification, and reduced-query replay.
+- `configs/reproduction.json`: the frozen public reproduction contract (upstream commit/hash contract, carrier coordinates/vectors, alpha, thresholds, environment, seeds, and calibration schedule).
+- `reference/`: compact registered owner templates/threshold metadata; third-party images are **not** redistributed.
 - `evidence/`: compact numerical evidence needed to check the released decision logic without model execution.
 - `scripts/release_audit.py`: fail-closed repository leakage audit used by CI.
 
@@ -45,32 +45,29 @@ The following path requires no model weights or private assets:
 python -m compileall -q src experiments scripts tests
 python -m unittest discover -s tests -v
 python scripts/release_audit.py
-python experiments/query_budget.py --group kodak --out /tmp/kodak_query_budget.csv
+python experiments/query_budget.py --help
 ```
 
-The compile, unit-test, and audit commands validate the release surface. The final command recomputes deterministic reduced-query owner decisions from compact frozen codelength vectors.
+These commands compile the public surface, run lightweight tests, run the fail-closed release audit, and show the reduced-query replay interface.
 
 ## Full model reproduction
 
 1. Obtain the upstream repository and its pretrained lossless checkpoint from the upstream project and verify the hashes.
 2. Obtain the public datasets from their official sources. No raw dataset images are stored in this repository.
-3. Set the dataset variables described in `docs/reproducibility.md` and `ENTROPYSEAL_PYTHON` if the frozen interpreter is not the active interpreter.
-4. Stage the upstream source snapshot and checkpoint under the resource layout described in `docs/reproducibility.md`.
-5. Run the desired experiment runner from `experiments/` with explicit result/work directories. Full model runners require the non-redistributed public datasets/assets; the included lightweight tests and query-budget replay do not.
-
-The archive runners intentionally retain strict integrity checks. They are not allowed to silently substitute datasets, thresholds, profiles, carrier coordinates, alpha values, or checkpoint hashes.
+3. Use the frozen settings in `configs/reproduction.json` and the environment documented in `docs/reproducibility.md`.
+4. Use the public utilities in `experiments/` together with locally obtained upstream assets and public datasets. Raw internal orchestration/return packages are intentionally not part of the public API.
 
 ## Data and model policy
 
-This repository does not redistribute the upstream model checkpoint, the upstream source snapshot, DIV2K, Kodak, CLIC images, raw experiment logs, caches, or training checkpoints. Dataset manifests contain only filenames/coordinates/hashes needed to verify a locally obtained public dataset. See `docs/assets.md`.
+This repository does not redistribute the upstream model checkpoint, the upstream source snapshot, DIV2K, Kodak, CLIC images, raw experiment logs, caches, or training checkpoints. See `docs/assets.md`.
 
 ## Reproducibility boundary
 
 The repository distinguishes three layers:
 
 1. **Core method** — small, readable code in `src/entropyseal/`.
-2. **Frozen experiment runners** — exact evaluation logic with public path parameterization.
-3. **Compact evidence** — numerical summaries and codelength vectors sufficient for lightweight verifier/query-budget checks.
+2. **Public reproduction utilities** — portable entry points for the frozen scientific operations.
+3. **Compact evidence** — final numerical summaries, without raw return archives or machine-specific logs.
 
 This separation keeps the public release portable while preserving the scientific settings that determine the reported results.
 

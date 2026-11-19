@@ -1,0 +1,61 @@
+{
+  "blackbox_binding": {
+    "canonical_challenge_manifest_match": true,
+    "challenge_manifest_sha256": "080be26e6e649d50f27c5dda75464651f849edf02c82e338d2110186891e8e77",
+    "false_claim_rejects": 16,
+    "reference_runs": 128,
+    "result": "4/4 true claims accepted; 16/16 false claims rejected",
+    "suspect_runs": 160,
+    "total_runs": 288,
+    "tracked_source_diff_rows": 63,
+    "tracked_source_runtime_count": 9,
+    "true_claim_accepts": 4
+  },
+  "checkpoint_carrier": {
+    "checkpoint_diff_protocol_pass": true,
+    "clean_runtime_protocol_pass": true,
+    "condition_count": 144,
+    "marked_conditions": 128,
+    "result": "checkpoint carrier validated at alpha=0.03; alpha=0.06 retained as comparison",
+    "source_conditions": 16,
+    "surviving_alpha_if_GO": 0.03
+  },
+  "clean_rate": {
+    "any_false_owner_ever_accepted": false,
+    "earliest_step_all_four_true_owners_fail_on_both_datasets": 25,
+    "earliest_step_any_true_owner_fails_with_utility_preserved": 100,
+    "exact_count": 768,
+    "new_codec_conditions": 768,
+    "result": "clean-rate recalibration/removal characterization completed; no false owner accepted",
+    "runtime_audits": 24
+  },
+  "cross_dataset": {
+    "combined_false_rejects": 64,
+    "combined_false_total": 64,
+    "combined_true_accepts": 16,
+    "combined_true_total": 16,
+    "dataset_status": {
+      "CLIC2024": {"carrier_utility_pass": true,"challenge_manifest_sha256": "917a10973dd36b0dc390549e5b9b1313bb4f01f75e26d05f9b81dc303e6cc83c","exact_count": 320,"false_rejects": 32,"false_total": 32,"precision_utility_pass": true,"run_count": 320,"true_accepts": 8,"true_total": 8},
+      "KODAK": {"carrier_utility_pass": true,"challenge_manifest_sha256": "4168b8743a73ded88cac71fd8e252ba31b1d5b31c4512bc5a4689153a6381e64","exact_count": 320,"false_rejects": 32,"false_total": 32,"precision_utility_pass": true,"run_count": 320,"true_accepts": 8,"true_total": 8}
+    },
+    "primary_run_count": 640,
+    "result": "16/16 true claims accepted; 64/64 false claims rejected across Kodak and CLIC"
+  },
+  "fp16_profile": {
+    "challenge_manifest_sha256": "bc1eda7a454ef20ff0bb65d4dfcc34a45361e0ac06987799c1475017ec1e3687",
+    "false_claim_rejects": 32,
+    "false_claim_total": 32,
+    "primary_run_count": 320,
+    "representative_sample_ids": [4,28,3,10,0,7],
+    "result": "8/8 true claims accepted; 32/32 false claims rejected with FP32/FP16 profile bank",
+    "true_claim_accepts": 8,
+    "true_claim_total": 8
+  },
+  "mild_copy": {
+    "T2_in_mild_envelope_owners": [],
+    "expected_primary_run_count": 256,
+    "primary_run_count": 256,
+    "representative_sample_ids": [4,28,11,25,10,27],
+    "result": "naive mild-copy robustness failed true-owner retention"
+  }
+}

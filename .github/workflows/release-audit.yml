@@ -1,0 +1,22 @@
+name: Release audit
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile public Python surface
+        run: python -m compileall -q src experiments scripts
+      - name: Run lightweight unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate release surface
+        run: python scripts/release_audit.py
+      - name: Validate config JSON
+        run: python -m json.tool configs/reproduction.json > /dev/null

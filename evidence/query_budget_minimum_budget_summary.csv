@@ -1,0 +1,5 @@
+scope,group,group_name,smallest_B_primary_j0_complete,smallest_B_all_16_orders_complete,interpretation
+GROUP,G0,FP16_PROFILE_CURRENT_POOL,8,12,descriptive retrospective budget only; not a guaranteed sample-complexity result
+GROUP,G1,KODAK,8,12,descriptive retrospective budget only; not a guaranteed sample-complexity result
+GROUP,G2,CLIC2024,16,16,descriptive retrospective budget only; not a guaranteed sample-complexity result
+ALL_GROUPS_SIMULTANEOUS,ALL,G0+G1+G2,16,16,descriptive retrospective budget only; not a guaranteed sample-complexity result
